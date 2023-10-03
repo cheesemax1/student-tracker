@@ -196,5 +196,6 @@ If you are adding models you may need to migrate the database with the commands 
 816026826 [Naomi Dookeran]
 816024135[Matthew Roodal]
 816028020 [Jarrod Moore]
-
+## VsCode connection testing
+Test from --Mobile Desktop
 

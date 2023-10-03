@@ -191,3 +191,10 @@ If you are running into errors in gitpod when updateding your github actions fil
 ## Database Issues
 
 If you are adding models you may need to migrate the database with the commands given in the previous database migration section. Alternateively you can delete you database file.
+## Testing Contribution
+816030787[Faith Shim]
+816026826 [Naomi Dookeran]
+816024135[Matthew Roodal]
+816028020 [Jarrod Moore]
+
+

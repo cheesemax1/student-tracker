@@ -1,6 +1,8 @@
 from App.database import db
+from .user import *
+
 #Naomi
-class Lecturer():
+class Lecturer(User):
     
     # def init(self, upvote):
     #     self.upvote = upvote

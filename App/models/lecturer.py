@@ -30,7 +30,7 @@ class Lecturer(User):
     #   self.downvote += 1
 
     
-      
+## we changing it from adding upvote and downvote to affecting the karma itself cause i misunderstood when i coded this
 
 ## the upvote and downvote functions affect the student karma, wait a moment for me to make that class
 

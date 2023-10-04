@@ -1,5 +1,7 @@
 from App.database import db
 class Person(db.Model):
+
+  #from Machu
     id = db.Column(db.Interger, primary_key = True)
     name = db.Column(db.String, nullable = False)
     

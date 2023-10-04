@@ -1,5 +1,6 @@
 from App.database import db
-class Student(db.Model):
+from .person import *
+class Student(Person):
     id = db.Column(db.Integer, db.ForeignKey('Person.id'))
     student_id = db.Column(db.Integer, unique=True)
     year = db.Column(db.Date,nullable=False)

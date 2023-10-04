@@ -9,5 +9,8 @@ class Person(db.Model):
         self.id = id
         self.name = name
     
-    def toJSON(self):
-        return json.dumps({"id": self.id, "name": self.name})
+    def get_json(self):
+        return{
+          "id": self.id, 
+         "name": self.name
+        }

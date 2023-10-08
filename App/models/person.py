@@ -1,11 +1,19 @@
 from App.database import db
 class Person(db.Model):
-    id = db.Column(db.Interger, primary_key = True)
-    name = db.Column(db.String, nullable = False)
+    __abstract__ = True
+    id = db.Column(db.Integer, primary_key = True)
+    first_name = db.Column(db.String, nullable = False)
+    last_name = db.Column(db.String, nullable = False)
     
-    def __init__(self, id, name):
+    def __init__(self, id, first_name,last_name):
         self.id = id
-        self.name = name
+        self.first_name = first_name
+        self.last_name = last_name
     
     def toJSON(self):
-        return json.dumps({"id": self.id, "name": self.name})
+        return {
+            "id": self.id, 
+            "first_name": self.first_name,
+            "last_name": self.last_name
+            }
+

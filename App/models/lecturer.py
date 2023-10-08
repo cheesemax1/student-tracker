@@ -1,37 +1,15 @@
 from App.database import db
 from .user import *
 
-#Naomi
 class Lecturer(User):
-    
-    # def init(self, upvote):
-    #     self.upvote = upvote
-    #     self.give_upvote(upvote)
+    __tablename__ = 'lecturer'
 
-    # def init(self, downvote):
-    #     self.downvote = downvote
-    #     self.give_downvote(downvote)
+    id = db.Column(db.Integer, primary_key = True)
+    courses_taught = db.relationship('course',backref=db.backref('lecturer'),lazy='joined')
+    reviews = db.relationship('review',backref=db.backref('lecturer'),lazy='joined')
 
+    def __repr__(self):
+         return f'<Lecturer :{self.first_name, self.last_name}>'
 
-    # def toDict(self):
-    #   return{
-    #     'upvotes' = self.upvotes
-    #   }
-
-    # def upvote(self):
-    #   self.upvotes += 1
-
-    # def toDict(self):
-    #   return{
-    #     'downvotes' = self.downvotes
-    #   }
-
-    # def downvote(self):
-    #   self.downvote += 1
-
-    
-      
-
-## the upvote and downvote functions affect the student karma, wait a moment for me to make that class
 
          

@@ -1,10 +1,24 @@
 from App.database import db
 from .person import *
 class Student(Person):
-    id = db.Column(db.Integer, db.ForeignKey('Person.id'))
-    student_id = db.Column(db.Integer, unique=True)
-    year = db.Column(db.Date,nullable=False)
+    __tablename__ = 'student'
+    student_id = db.Column(db.Integer,nullable=False)
+    year = db.Column(db.Date,nullable=False,default=datetime.utcnow())
     karma = db.Column(db.Integer,default=0)
-    classes = db.relationship('Class',backref='student',lazy=True)
-    reviews = db.relationship('Review',backref='student',lazy=True)
-    #uncertian of these relationships will need to review
+    studentreviews = db.relationship('review',backref=db.backref('student'),lazy='joined')
+
+    def __repr__(self):
+        return f'<Student :{self.first_name, self.last_name}, Year :{self.year}, Karma: {self.karma}>'
+
+    def __init__(self,name,year,karma=0):
+        self.name = name
+        self.year = year
+        self.karma = karma
+
+    def toJSON(self):
+        return{
+            'id': self.id,
+            'name': self.name,
+            'year': self.year,
+            'karma': self.karma
+        }

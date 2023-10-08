@@ -1,8 +1,16 @@
 from App.database import db
 
 class Review(db.Model):
-    review_time = db.Column(db.DateTime,nullable=False)
+    __tablename__ = 'review'
+    
+    id = db.Column(db.Integer, primary_key = True)
+    student_id = db.Column(db.Integer, db.ForeignKey("student.id"))
+    lecturer_id  = db.Column(db.Integer, db.ForeignKey("lecturer.id"))
+    review_date = db.Column(db.Date,nullable=False,default=datetime.utcnow)
     comment = db.Column(db.Text,nullable=False)
+
+    def __repr__(self):
+        return f'<Reviewer :{self.lecturer_id.name}, Student :{self.student_id.name}>'
 
     def __init__(self, reviewDate, comment):
       self.reviewDate = reviewDate

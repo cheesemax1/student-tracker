@@ -16,13 +16,14 @@ class User(Person):
                                  backref=db.backref('user'),
                                  lazy='joined')
 
-  def __init__(self, name, username, password):
+  def __init__(self, name, username, password, user_type):
     self.name = name
     self.username = username
+    self.user_type = user_type
     self.set_password(password)
 
   def __repr__(self):
-    return f'<User {self.id} {self.username}>'
+    return f'<User: {self.id}, {self.name}, {self.username}>'
 
   def set_password(self, password):
     self.password = generate_password_hash(password, method='sha256')

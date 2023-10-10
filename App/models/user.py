@@ -9,7 +9,7 @@ class User(Person):
   username = db.Column(db.String(120), nullable=False, unique=True)
   user_type = db.Column(db.String(120), nullable=False)
   password = db.Column(db.String(120), nullable=False)
-  course_taught = db.relationship('Course',
+  courses_teaching = db.relationship('Course',
                                   backref=db.backref('user'),
                                   lazy='joined')
   reviews_made = db.relationship('Review',

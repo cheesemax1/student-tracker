@@ -1,20 +1,33 @@
 from App.models import Review
 from App.database import db
-from App.models.student import Student
+from App.models import Student
+from App.models import User
 
-def create_review(user_id, student_id, comment):
+
+def create_review(lecturer_id, student_id, comment):
   try:
-    review = Review(user_id=user_id, student_id=student_id, comment=comment)
+    review = Review(lecturer_id=lecturer_id,
+                    student_id=student_id,
+                    comment=comment)
     db.session.add(review)
+    lecturer = User.query.get(lecturer_id)
+    student = Student.query.get(student_id)
+    if not (lecturer or student):
+      return None
+
+    lecturer.reviews_made.append(review)
+    student.studentreviews.append(review)
     db.session.commit()
     return review
   except Exception as e:
-    print ("Error creating review", e)
+    print("Error creating review", e)
     db.session.rollback()
     return None
 
+
 def get_all_reviews():
   return Review.query.all()
+
 
 def get_all_reviews_json():
   reviews = Review.query.all()
@@ -22,11 +35,13 @@ def get_all_reviews_json():
     return []
   return [review.to_json() for review in reviews]
 
-def get_review_by_id(review_id):
-  return Review.query.get(review_id)
 
-def get_reviews_of_student(student_id):
-  return Review.query.filter(Student.id==student_id)
+def get_review_by_id(id):
+  return Review.query.get(id)
 
-def get_all_review_from_user(id):
-  return Review.query.filter(Review.user_id==id).all()
+
+# def get_reviews_of_student(student_id):
+#   return Review.query.filter(Review.student_id == student_id)
+
+# def get_all_review_from_user(id):
+#   return Review.query.filter(Review.lecturer_id == id).all()

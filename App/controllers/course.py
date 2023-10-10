@@ -2,9 +2,9 @@ from App.models import Course
 from App.database import db
 
 
-def create_course(user_id, couse_code, course_name):
+def create_course(lecturer_id, course_code, course_name):
   try:
-    course = Course(user_id=user_id,
+    course = Course(lecturer_id=lecturer_id,
                     course_code=course_code,
                     course_name=course_name)
     db.session.add(course)
@@ -16,4 +16,4 @@ def create_course(user_id, couse_code, course_name):
 
 
 def get_course_by_id(id):
-  return Course.query.filter(Course.id == id).first()
+  return Course.query.filter(Course.course_id == id).first()

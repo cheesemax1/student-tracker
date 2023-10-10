@@ -40,13 +40,13 @@ def get_student(id):
 def get_all_students():
   return Student.query.all()
 
+#Beyond Scope
+# def get_students_ranked_by_karma():
+#   return Student.query.order_by(Student.karma.desc()).all()
 
-def get_students_ranked_by_karma():
-  return Student.query.order_by(Student.karma.desc()).all()
 
-
-def get_student_highest_karma(id):
-  return Student.query.filter(Student.id == id).first()
+# def get_student_highest_karma(id):
+#   return Student.query.filter(Student.id == id).first()
 
 
 def upvote_student(id):

@@ -19,7 +19,7 @@ class Course(db.Model):
   def toJSON(self):
     return {
         "id": self.course_id,
-        "lecturer": self.lecturer_id,{}
+        "lecturer": self.lecturer_id,
         "courseCode": self.course_code,
         "courseName": self.course_name
     }

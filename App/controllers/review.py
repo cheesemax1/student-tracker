@@ -4,13 +4,13 @@ from App.models import Student
 from App.models import User
 
 
-def create_review(lecturer_id, student_id, comment):
+def create_review(user_id, student_id, comment):
   try:
-    review = Review(lecturer_id=lecturer_id,
+    review = Review(lecturer_id=user_id,
                     student_id=student_id,
                     comment=comment)
     db.session.add(review)
-    lecturer = User.query.get(lecturer_id)
+    lecturer = User.query.get(user_id)
     student = Student.query.get(student_id)
     if lecturer and student:
       lecturer.reviews_made.append(review)
@@ -38,8 +38,8 @@ def get_review_by_id(id):
   return Review.query.get(id)
 
 
-# def get_reviews_of_student(student_id):
-#   return Review.query.filter(Review.student_id == student_id)
+def get_reviews_of_student(student_id):
+  return Review.query.filter(Review.student_id == student_id).all()
 
-# def get_all_review_from_user(id):
-#   return Review.query.filter(Review.lecturer_id == id).all()
+def get_reviews_from_lecturer(id):
+  return Review.query.filter(Review.lecturer_id == id).all()

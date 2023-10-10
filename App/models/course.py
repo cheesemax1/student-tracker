@@ -14,4 +14,4 @@ class Course(db.Model):
     self.course_name = course_name
 
   def __repr__(self):
-    return f'<Code:{self.course_code}, Lecturer :{self.user_id.name}>'
+    return f'<Code:{self.course_code}, Lecturer :{self.user_id}>'

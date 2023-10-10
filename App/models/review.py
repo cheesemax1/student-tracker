@@ -7,19 +7,22 @@ class Review(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   student_id = db.Column(db.Integer, db.ForeignKey("student.id"))
-  lecturer_id = db.Column(db.Integer, db.ForeignKey("lecturer.id"))
-  review_date = db.Column(db.Date, nullable=False, default=datetime.utcnow)
+  user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+  review_date = db.Column(db.Date, default=datetime.utcnow)
   comment = db.Column(db.Text, nullable=False)
 
-  def __repr__(self):
-    return f'<Reviewer :{self.lecturer_id.name}, Student :{self.student_id.name}>'
-
-  def __init__(self, lecturer_id, comment):
-    self.reviewDate = reviewDate
+  def __init__(self, user_id, student_id, comment):
+    self.user_id = user_id
+    self.student_id = student_id
     self.comment = comment
+
+  def __repr__(self):
+    return f'<Reviewer :{self.user_id}, Comment :{self.comment}>'
 
   def toJSON(self):
     return {
-        'reviewDate': self.reviewDate.strftime('%Y-%m-%d'),
+        '':,
+    '':,
+        'reviewDate': self.review_date.strftime('%Y-%m-%d'),
         'comment': self.comment
     }

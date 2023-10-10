@@ -1,5 +1,6 @@
 from App.models import Review
 from App.database import db
+from App.models.student import Student
 
 def create_review(user_id, student_id, comment):
   try:
@@ -25,7 +26,7 @@ def get_review_by_id(review_id):
   return Review.query.get(review_id)
 
 def get_reviews_of_student(student_id):
-  return Review.query.filter_by(student_id=student_id)
+  return Review.query.filter(Student.id==student_id)
 
 def get_all_review_from_user(id):
   return Review.query.filter(Review.user_id==id).all()

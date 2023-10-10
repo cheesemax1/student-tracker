@@ -1,5 +1,6 @@
 from App.models import Student
 from App.database import db
+from App.controllers.course import get_course
 
 
 def create_student(name, year):
@@ -15,7 +16,7 @@ def create_student(name, year):
 
 
 def update_student_name(name, id):
-  student = search_student_by_id(id)
+  student = get_student(id)
   if student:
     student.name = name
     db.session.add(student)
@@ -24,7 +25,7 @@ def update_student_name(name, id):
 
 
 def update_student_year(year, id):
-  student = search_student_by_id(id)
+  student = get_student(id)
   if student:
     student.year = year
     db.session.add(student)
@@ -32,12 +33,12 @@ def update_student_year(year, id):
   return None
 
 
-def search_student_by_id(id):
+def get_student(id):
   return Student.query.get(id)
 
 
-def get_student_by_name(name):
-  return Student.query.filter_by(name=name).first()
+def get_all_students():
+  return Student.query.all()
 
 
 def get_students_ranked_by_karma():
@@ -46,3 +47,30 @@ def get_students_ranked_by_karma():
 
 def get_student_highest_karma(id):
   return Student.query.filter(Student.id == id).first()
+
+
+def upvote_student(id):
+  student = get_student(id)
+  if student:
+    student.karma += 1
+    db.session.add(student)
+    return db.session.commit()
+  return None
+
+
+def downvote_student(id):
+  student = get_student(id)
+  if student:
+    student.karma -= 1
+    db.session.add(student)
+    return db.session.commit()
+  return None
+
+def assign_course(student_id,course_id):
+  course = get_course(course_id)
+  student = get_student(student_id)
+  if course and student:
+    student.courses.append(course)
+    db.session.add(student)
+    return db.session.commit()
+  return None

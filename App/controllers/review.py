@@ -12,13 +12,11 @@ def create_review(lecturer_id, student_id, comment):
     db.session.add(review)
     lecturer = User.query.get(lecturer_id)
     student = Student.query.get(student_id)
-    if not (lecturer or student):
-      return None
-
-    lecturer.reviews_made.append(review)
-    student.studentreviews.append(review)
-    db.session.commit()
-    return review
+    if lecturer and student:
+      lecturer.reviews_made.append(review)
+      student.studentreviews.append(review)
+      db.session.commit()
+      return review
   except Exception as e:
     print("Error creating review", e)
     db.session.rollback()

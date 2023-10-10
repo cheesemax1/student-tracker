@@ -22,5 +22,13 @@ def create_course(lecturer_id, course_code, course_name):
     return None
 
 
-def get_course_by_id(id):
+def get_course(id):
   return Course.query.get(id)
+
+def get_courses_by_lecturer(lecturer_id):
+  return Course.query.filter_by(lecturer_id=lecturer_id).all()
+def get_courses_by_student(student_id):
+  return Course.query.filter_by(students=student_id).all()
+
+def get_all_courses():
+  return Course.query.all()

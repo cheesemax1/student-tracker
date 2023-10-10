@@ -3,7 +3,7 @@ from flask_jwt import current_identity
 from App.controllers import (create_student, is_admin, update_student_name,
                              update_student_year, get_student,
                              get_all_students, upvote_student,
-                             downvote_student,assign_course)
+                             downvote_student, assign_course)
 
 student_views = Blueprint('student_views',
                           __name__,
@@ -24,13 +24,13 @@ def create_student_action():
 def get_students_action():
   if is_admin(current_identity):
     students = get_all_students()
-    return jsonify(students)
+    return jsonify({'students': [student.toJSON() for student in students]})
   return jsonify({'error': 'unauthorized'})
 
 
-@student_views.route('/students/<int:id>', methods=['GET'])
-def get_specfic_student_action(id):
-  student = get_student(id)
+@student_views.route('/students/<int:student_id>', methods=['GET'])
+def get_specfic_student_action(student_id):
+  student = get_student(student_id)
   if student:
     return jsonify(student)
   return jsonify({'error': 'student not found'})
@@ -76,10 +76,14 @@ def downvote_student_action(student_id):
 def assign_course_to_student_action(student_id):
   if is_admin(current_identity.id):
     data = request.form
-    
+
     student = assign_course(student_id, data['course_id'])
     if student:
-      return jsonify(
-        {'message': f"student {student_id} assigned to course {data['course_id']}"})
-    return jsonify(
-      {'error': f"failed to assign student {student_id} to course {data['course_id']}"})
+      return jsonify({
+          'message':
+          f"student {student_id} assigned to course {data['course_id']}"
+      })
+    return jsonify({
+        'error':
+        f"failed to assign student {student_id} to course {data['course_id']}"
+    })

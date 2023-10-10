@@ -1,5 +1,6 @@
 from App.database import db
 from .person import Person
+from .student_course import student_course
 
 
 class Student(Person):
@@ -9,6 +10,9 @@ class Student(Person):
   studentreviews = db.relationship('review',
                                    backref=db.backref('student'),
                                    lazy='joined')
+  courses = db.relationship('course',
+                            secondary=student_course,
+                            backref='enrolled_students')
 
 
 def __repr__(self):

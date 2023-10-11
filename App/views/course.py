@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory
-from flask_jwt import current_identity
+from flask_jwt_extended import jwt_required, current_user as jwt_current_user
 from App.controllers.user import is_admin
 from App.controllers.course import create_course, get_course, get_courses_by_lecturer, get_courses_by_student, get_all_courses
 
